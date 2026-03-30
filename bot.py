@@ -80,9 +80,13 @@ Murojaat: +998996551557
 Toshkent sh."""
         )
 
-app = ApplicationBuilder().token(TOKEN).build()
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CallbackQueryHandler(button))
+updater = Updater(TOKEN, use_context=True)
+dp = updater.dispatcher
 
-app.run_polling()
+dp.add_handler(CommandHandler("start", start))
+dp.add_handler(CallbackQueryHandler(button))
+
+updater.start_polling()
+updater.idle()
